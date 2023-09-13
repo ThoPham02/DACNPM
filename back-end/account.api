@@ -1,0 +1,84 @@
+info(
+	title: "account server"
+	desc:
+	author: "ThoPB"
+	email:
+	version: 1.0
+)
+
+type (
+	Result {
+		Code    int64  `json:"code"`
+		Message string `json:"message"`
+	}
+	User {
+		ID       int64  `json:"id"`
+		Name     string `json:"name"`
+		Fullname string `json:""fullname"`
+		Email    string `json:"email"`
+		Role     int64  `json:"role"`
+	}
+)
+
+type (
+	LoginReq {
+		Username string `form:"username"` //	username
+		Password string `form:"password"` // 	password
+	}
+
+	LoginRes {
+		Token  string `json:"token"`
+		User   User   `json:"user"`
+		Result Result `json:"result"`
+	}
+)
+
+type (
+	RegisterReq {
+		Username string `form:"username"`
+		Password string `form:"password"`
+		Email    string `form:"email"`
+	}
+
+	RegisterRes {
+		Token  string `json:"token"`
+		User   string `json:"user"`
+		Result Result `json:"result"`
+	}
+)
+
+type (
+	GetUserReq {
+		UserID int64 `form:"user_id"`
+	}
+	GetUserRes {
+		Result Result `json:"result"`
+		User   User   `json:"user"`
+	}
+)
+
+service account-api {
+	@doc(
+		summary: Login API
+	)
+	@handler LoginHandler
+	post /user/login (LoginReq) returns(LoginRes)
+	
+	@doc(
+		summary: Register API
+	)
+	@handler RegisterHandler
+	post /user/register (RegisterReq) returns(RegisterRes)
+}
+
+@server(
+	jwt:  Auth
+	middleware: UserTokenMiddleware
+)
+service account-api {
+	@doc(
+		summary: Get User
+	)
+	@handler GetUser
+	get /user/:user_id (GetUserReq) returns(GetUserRes)
+}

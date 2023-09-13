@@ -1,0 +1,9 @@
+Name: account
+Host: 0.0.0.0
+Port: 8888
+Auth:
+  AccessSecret: ThoPhamSecretKey
+  AccessExpire: 2592000
+Database:
+  DataSource: postgres://thopham:hdp0pylJq8EoLvAy8gI15XWU4vytfabF@dpg-ck0hgej6fquc73e0nkl0-a.singapore-postgres.render.com/dscnpm_db
+  DataName: postgres
