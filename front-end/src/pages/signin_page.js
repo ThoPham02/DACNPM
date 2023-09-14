@@ -15,34 +15,36 @@ const SignIn = (setPage) => {
                     <div className="signin-form">
                         <div className="signin-input">
                             <div>
-                                <span>Tên đăng nhập</span>
+                                <p>Tên đăng nhập</p>
                             </div>
                             <input type="text" />
                         </div>
                         <div className="signin-input">
                             <div>
-                                <span>Mật khẩu </span>
-                                <span>Quên mật khẩu</span>
+                                <p>Mật khẩu </p>
+                                <p className="forgot-password">Quên mật khẩu</p>
                             </div>
                             <input type="text" />
                             <AiFillEyeInvisible />
                         </div>
 
-                        <button className="signin-button">Đăng nhập</button>
+                        <button className="signin-button">
+                            <p>Đăng nhập</p>
+                        </button>
                     </div>
 
                     <div className="signin-other">
                         <p>hoặc đăng nhập bằng</p>
-                        <div className="signin-method">
-                            <FaFacebookF /> Facebook
-                        </div>
-                        <div className="signin-method">
-                            <FcGoogle /> Google
-                        </div>
+                            <div className="signin-method">
+                                <FaFacebookF /> <p>Facebook</p>
+                            </div>
+                            <div className="signin-method">
+                                <FcGoogle /> <p>Google</p>
+                            </div>
                     </div>
 
                     <div className="signin-out">
-                        Bạn chưa có tài khoản? <span>Đăng ký ngay!</span>
+                        Bạn chưa có tài khoản? <p>Đăng ký ngay!</p>
                     </div>
                 </div>
             </div>

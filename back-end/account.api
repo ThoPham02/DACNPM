@@ -14,7 +14,7 @@ type (
 	User {
 		ID       int64  `json:"id"`
 		Name     string `json:"name"`
-		Fullname string `json:""fullname"`
+		FullName string `json:"fullName"`
 		Email    string `json:"email"`
 		Role     int64  `json:"role"`
 	}
@@ -35,6 +35,7 @@ type (
 
 type (
 	RegisterReq {
+		Fullname string `form:"fullname"`
 		Username string `form:"username"`
 		Password string `form:"password"`
 		Email    string `form:"email"`
@@ -42,14 +43,14 @@ type (
 
 	RegisterRes {
 		Token  string `json:"token"`
-		User   string `json:"user"`
+		User   User   `json:"user"`
 		Result Result `json:"result"`
 	}
 )
 
 type (
 	GetUserReq {
-		UserID int64 `form:"user_id"`
+		UserID int64 `path:"user_id"`
 	}
 	GetUserRes {
 		Result Result `json:"result"`

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"time"
 
 	"back-end/api/internal/svc"
 	"back-end/api/internal/types"
@@ -31,6 +32,9 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginRes, err error
 	var userModel *model.UserTbl
 	var user types.User
 	var token string
+	var secret = l.svcCtx.Config.Auth.AccessSecret
+	var msTimeNow = time.Now().Unix()
+	var expire = l.svcCtx.Config.Auth.AccessExpire
 
 	userModel, err = l.svcCtx.UserModel.FindByName(l.ctx, req.Username)
 	if err != nil {
@@ -62,7 +66,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginRes, err error
 		}, nil
 	}
 
-	token, err = GenToken()
+	token, err = GenToken(secret, msTimeNow, expire, user.ID)
 	if err != nil {
 		l.Logger.Error(err)
 		return &types.LoginRes{
@@ -76,7 +80,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginRes, err error
 	user = types.User{
 		ID:       userModel.Id,
 		Name:     userModel.UserName,
-		Fullname: userModel.FullName,
+		FullName: userModel.FullName,
 		Email:    userModel.Email,
 		Role:     userModel.Role,
 	}

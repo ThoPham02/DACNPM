@@ -15,7 +15,7 @@ type (
 	// and implement the added methods in customUserTblModel.
 	UserTblModel interface {
 		userTblModel
-		FindByName(ctx context.Context, name string) (*UserTbl, error)
+		FindByName(ctx context.Context, userName string) (*UserTbl, error)
 	}
 
 	customUserTblModel struct {
@@ -30,10 +30,10 @@ func NewUserTblModel(conn sqlx.SqlConn) UserTblModel {
 	}
 }
 
-func (m *defaultUserTblModel) FindByName(ctx context.Context, name string) (*UserTbl, error) {
-	query := fmt.Sprintf("select %s from %s where `user_name` = ? limit 1", userTblRows, m.table)
+func (m *defaultUserTblModel) FindByName(ctx context.Context, userName string) (*UserTbl, error) {
+	query := fmt.Sprintf("select %s from %s where user_name = $1 limit 1", userTblRows, m.table)
 	var resp UserTbl
-	err := m.conn.QueryRowCtx(ctx, &resp, query, name)
+	err := m.conn.QueryRowCtx(ctx, &resp, query, userName)
 	switch err {
 	case nil:
 		return &resp, nil

@@ -55,7 +55,158 @@
 }
 
 .signin-input {
-    
+    position: relative;
+    margin-bottom: 40px;
 }
 
+.signin-input div {
+    position: relative;
+}
 
+.signin-input div p {
+    color: #000;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.signin-input div p+.forgot-password {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    color: #2F80ED;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.signin-input input {
+    display: flex;
+    width: 440px;
+    height: 54px;
+    padding: 16px 15px;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.signin-input svg {
+    width: 22px;
+    height: 20px;
+    flex-shrink: 0;
+
+    position: absolute;
+    top: 40px;
+    right: 16px;
+}
+
+.signin-input svg:hover {
+    cursor: pointer;
+}
+
+.signin-button {
+    display: flex;
+    width: 440px;
+    height: 50px;
+    padding: 15px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+
+    border-radius: 40px;
+    background: var(--Green, #00BF6F);
+    box-shadow: 0px 2px 10px 0px rgba(244, 103, 0, 0.05);
+}
+
+.signin-button p {
+    color: #FFF;
+    text-align: center;
+    /* GG/16px/Med/Button Text */
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.signin-other {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.signin-other p {
+    color: var(--light-transparent-greyscale-65, rgba(0, 0, 0, 0.65));
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.192px;
+    width: 440px;
+}
+
+.signin-method {
+    width: 210px;
+    height: 45px;
+    margin-top: 16px;
+
+    border-radius: 24px;
+    background: #E5E6EC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signin-method svg {
+    height: 21.477px;
+    flex-shrink: 0;
+    font-size: 28px;
+
+    fill: #2F80ED;
+}
+
+.signin-method p {
+    width: 70px;
+    height: 19.432px;
+    flex-shrink: 0;
+
+    color: var(--light-greyscale-greyscale-900, #000);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.signin-out {
+    width: 440px;
+    margin-top: 16px;
+    padding: 35px 30px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signin-out p {
+    color:#2F80ED;
+    text-align: center;
+    /* Medium/Body 16 */
+    font-family: Nunito Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.signin-out p:hover {
+    cursor: pointer;
+}

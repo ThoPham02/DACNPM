@@ -5,6 +5,7 @@ import (
 	"back-end/api/internal/middleware"
 	"back-end/api/model"
 
+	_ "github.com/lib/pq"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"github.com/zeromicro/go-zero/rest"
 )

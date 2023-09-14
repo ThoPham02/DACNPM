@@ -9,7 +9,7 @@ type Result struct {
 type User struct {
 	ID       int64  `json:"id"`
 	Name     string `json:"name"`
-	Fullname string `json:""fullname"`
+	FullName string `json:"fullName"`
 	Email    string `json:"email"`
 	Role     int64  `json:"role"`
 }
@@ -26,6 +26,7 @@ type LoginRes struct {
 }
 
 type RegisterReq struct {
+	Fullname string `form:"fullname"`
 	Username string `form:"username"`
 	Password string `form:"password"`
 	Email    string `form:"email"`
@@ -33,12 +34,12 @@ type RegisterReq struct {
 
 type RegisterRes struct {
 	Token  string `json:"token"`
-	User   string `json:"user"`
+	User   User   `json:"user"`
 	Result Result `json:"result"`
 }
 
 type GetUserReq struct {
-	UserID int64 `form:"user_id"`
+	UserID int64 `path:"user_id"`
 }
 
 type GetUserRes struct {

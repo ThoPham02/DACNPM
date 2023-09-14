@@ -2,7 +2,12 @@ module back-end
 
 go 1.20
 
-require github.com/zeromicro/go-zero v1.5.5
+require (
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/lib/pq v1.10.9
+	github.com/zeromicro/go-zero v1.5.5
+	golang.org/x/crypto v0.12.0
+)
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect

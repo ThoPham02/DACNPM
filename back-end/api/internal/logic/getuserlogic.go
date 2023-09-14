@@ -54,7 +54,7 @@ func (l *GetUserLogic) GetUser(req *types.GetUserReq) (resp *types.GetUserRes, e
 	user = types.User{
 		ID:       userModel.Id,
 		Name:     userModel.UserName,
-		Fullname: userModel.FullName,
+		FullName: userModel.FullName,
 		Email:    userModel.Email,
 		Role:     userModel.Role,
 	}

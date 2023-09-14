@@ -7,7 +7,6 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
@@ -16,10 +15,10 @@ import (
 )
 
 var (
-	userTblFieldNames          = builder.RawFieldNames(&UserTbl{})
+	userTblFieldNames          = builder.RawFieldNames(&UserTbl{}, true)
 	userTblRows                = strings.Join(userTblFieldNames, ",")
-	userTblRowsExpectAutoSet   = strings.Join(stringx.Remove(userTblFieldNames, "`id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), ",")
-	userTblRowsWithPlaceHolder = strings.Join(stringx.Remove(userTblFieldNames, "`id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), "=?,") + "=?"
+	userTblRowsExpectAutoSet   = strings.Join(stringx.Remove(userTblFieldNames, "id"), ",")
+	userTblRowsWithPlaceHolder = builder.PostgreSqlJoin(stringx.Remove(userTblFieldNames, "id"))
 )
 
 type (
@@ -36,32 +35,32 @@ type (
 	}
 
 	UserTbl struct {
-		Id        int64     `db:"id"`
-		FullName  string    `db:"full_name"`
-		UserName  string    `db:"user_name"`
-		Password  string    `db:"password"`
-		Email     string    `db:"email"`
-		Role      int64     `db:"role"`
-		CreatedAt time.Time `db:"created_at"`
-		UpdatedAt time.Time `db:"updated_at"`
+		Id        int64  `db:"id"`
+		FullName  string `db:"full_name"`
+		UserName  string `db:"user_name"`
+		Password  string `db:"password"`
+		Email     string `db:"email"`
+		Role      int64  `db:"role"`
+		CreatedAt int64  `db:"created_at"`
+		UpdatedAt int64  `db:"updated_at"`
 	}
 )
 
 func newUserTblModel(conn sqlx.SqlConn) *defaultUserTblModel {
 	return &defaultUserTblModel{
 		conn:  conn,
-		table: "`user_tbl`",
+		table: `"public"."user_tbl"`,
 	}
 }
 
 func (m *defaultUserTblModel) Delete(ctx context.Context, id int64) error {
-	query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
+	query := fmt.Sprintf("delete from %s where id = $1", m.table)
 	_, err := m.conn.ExecCtx(ctx, query, id)
 	return err
 }
 
 func (m *defaultUserTblModel) FindOne(ctx context.Context, id int64) (*UserTbl, error) {
-	query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", userTblRows, m.table)
+	query := fmt.Sprintf("select %s from %s where id = $1 limit 1", userTblRows, m.table)
 	var resp UserTbl
 	err := m.conn.QueryRowCtx(ctx, &resp, query, id)
 	switch err {
@@ -75,14 +74,14 @@ func (m *defaultUserTblModel) FindOne(ctx context.Context, id int64) (*UserTbl, 
 }
 
 func (m *defaultUserTblModel) Insert(ctx context.Context, data *UserTbl) (sql.Result, error) {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?)", m.table, userTblRowsExpectAutoSet)
-	ret, err := m.conn.ExecCtx(ctx, query, data.FullName, data.UserName, data.Password, data.Email, data.Role)
+	query := fmt.Sprintf("insert into %s (%s) values ($1, $2, $3, $4, $5, $6, $7)", m.table, userTblRowsExpectAutoSet)
+	ret, err := m.conn.ExecCtx(ctx, query, data.FullName, data.UserName, data.Password, data.Email, data.Role, data.CreatedAt, data.UpdatedAt)
 	return ret, err
 }
 
 func (m *defaultUserTblModel) Update(ctx context.Context, data *UserTbl) error {
-	query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userTblRowsWithPlaceHolder)
-	_, err := m.conn.ExecCtx(ctx, query, data.FullName, data.UserName, data.Password, data.Email, data.Role, data.Id)
+	query := fmt.Sprintf("update %s set %s where id = $1", m.table, userTblRowsWithPlaceHolder)
+	_, err := m.conn.ExecCtx(ctx, query, data.Id, data.FullName, data.UserName, data.Password, data.Email, data.Role, data.CreatedAt, data.UpdatedAt)
 	return err
 }
 
