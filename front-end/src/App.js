@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className="App">
-      {page ? SignIn(setPage) : SignUp(setPage)}
+      {page ? <SignIn setPage={setPage} /> : <SignUp setPage={setPage} />}
     </div>
   );
 }
