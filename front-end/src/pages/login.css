@@ -241,6 +241,10 @@
     margin: 24px 0;
 }
 
+.signup-button:hover {
+    cursor: pointer;
+}
+
 .signup-button p {
     width: 245px;
     height: 50px;
@@ -258,4 +262,68 @@
     line-height: normal;
     text-transform: capitalize;
     line-height: 50px;
+}
+
+.signup-other {
+    padding: 0 70px;
+}
+
+.signup-other div p {
+    color: var(--main-text, #002352);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+}
+
+.line {
+    height: 1px;
+    background-color: #000;
+}
+
+.method-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-method {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #000;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 24px 16px 0;
+}
+
+.signup-method:hover {
+    cursor: pointer;
+}
+
+.signup-out {
+    width: 440px;
+    padding: 24px 30px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-out p {
+    color: #2F80ED;
+    text-align: center;
+    font-family: Nunito Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.signup-out p:hover {
+    cursor: pointer;
 }

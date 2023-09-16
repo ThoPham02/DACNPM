@@ -1,7 +1,11 @@
 import Input from "../components/input/input";
 import "./login.css"
 
-const SignUp = ({setPage}) => {
+import { FaFacebookF } from "react-icons/fa"
+import { AiFillApple } from "react-icons/ai"
+import { BiLogoGooglePlus } from "react-icons/bi"
+
+const SignUp = ({ setPage }) => {
     const handleChangePage = () => {
         setPage(true)
     }
@@ -32,14 +36,21 @@ const SignUp = ({setPage}) => {
                             <p>Hoặc</p>
                             <span className="line"></span>
                         </div>
-                        <div className="signup-method">
-                        </div>
-                        <div className="signup-method">
+                        <div className="method-container">
+                            <div className="signup-method">
+                                <FaFacebookF />
+                            </div>
+                            <div className="signup-method">
+                                <BiLogoGooglePlus />
+                            </div>
+                            <div className="signup-method">
+                                <AiFillApple />
+                            </div>
                         </div>
                     </div>
 
-                    <div className="signin-out">
-                        Bạn đã có tài khoản rồi? <p onClick={handleChangePage}>Đăng nhập</p>
+                    <div className="signup-out">
+                        Bạn đã có tài khoản rồi? {" "} <p onClick={handleChangePage}>Đăng nhập</p>
                     </div>
                 </div>
             </div>
