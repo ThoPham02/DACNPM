@@ -55,7 +55,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginRes, err error
 		}, nil
 	}
 
-	err = ComparePassword(userModel.Password, req.Password)
+	err = ComparePassword(userModel.HashPassword, req.Password)
 	if err != nil {
 		l.Logger.Error(err)
 		return &types.LoginRes{
@@ -79,10 +79,10 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginRes, err error
 
 	user = types.User{
 		ID:       userModel.Id,
-		Name:     userModel.UserName,
+		Name:     userModel.Name,
 		FullName: userModel.FullName,
 		Email:    userModel.Email,
-		Role:     userModel.Role,
+		Role:     userModel.Role.Int64,
 	}
 
 	return &types.LoginRes{

@@ -31,7 +31,7 @@ func NewUserTblModel(conn sqlx.SqlConn) UserTblModel {
 }
 
 func (m *defaultUserTblModel) FindByName(ctx context.Context, userName string) (*UserTbl, error) {
-	query := fmt.Sprintf("select %s from %s where user_name = $1 limit 1", userTblRows, m.table)
+	query := fmt.Sprintf("select %s from %s where name = $1 limit 1", userTblRows, m.table)
 	var resp UserTbl
 	err := m.conn.QueryRowCtx(ctx, &resp, query, userName)
 	switch err {

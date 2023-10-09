@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"database/sql"
 	"time"
 
 	"back-end/api/internal/svc"
@@ -70,11 +71,11 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterRe
 	}
 
 	newUserModel = &model.UserTbl{
-		FullName: req.Fullname,
-		UserName: req.Username,
-		Password: hashPassword,
-		Email:    req.Email,
-		Role:     2,
+		FullName:     req.Fullname,
+		Name:         req.Username,
+		HashPassword: hashPassword,
+		Email:        req.Email,
+		Role:         sql.NullInt64{Valid: true, Int64: 2},
 	}
 	_, err = l.svcCtx.UserModel.Insert(l.ctx, newUserModel)
 	if err != nil {
@@ -89,10 +90,10 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterRe
 
 	user = types.User{
 		ID:       newUserModel.Id,
-		Name:     newUserModel.UserName,
+		Name:     newUserModel.Name,
 		FullName: newUserModel.FullName,
 		Email:    newUserModel.Email,
-		Role:     newUserModel.Role,
+		Role:     newUserModel.Role.Int64,
 	}
 
 	token, err = GenToken(secret, msTimeNow, expire, user.ID)

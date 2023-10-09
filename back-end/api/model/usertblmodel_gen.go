@@ -35,14 +35,12 @@ type (
 	}
 
 	UserTbl struct {
-		Id        int64  `db:"id"`
-		FullName  string `db:"full_name"`
-		UserName  string `db:"user_name"`
-		Password  string `db:"password"`
-		Email     string `db:"email"`
-		Role      int64  `db:"role"`
-		CreatedAt int64  `db:"created_at"`
-		UpdatedAt int64  `db:"updated_at"`
+		Id           int64         `db:"id"`
+		Name         string        `db:"name"`
+		FullName     string        `db:"full_name"`
+		HashPassword string        `db:"hash_password"`
+		Email        string        `db:"email"`
+		Role         sql.NullInt64 `db:"role"`
 	}
 )
 
@@ -74,14 +72,14 @@ func (m *defaultUserTblModel) FindOne(ctx context.Context, id int64) (*UserTbl, 
 }
 
 func (m *defaultUserTblModel) Insert(ctx context.Context, data *UserTbl) (sql.Result, error) {
-	query := fmt.Sprintf("insert into %s (%s) values ($1, $2, $3, $4, $5, $6, $7)", m.table, userTblRowsExpectAutoSet)
-	ret, err := m.conn.ExecCtx(ctx, query, data.FullName, data.UserName, data.Password, data.Email, data.Role, data.CreatedAt, data.UpdatedAt)
+	query := fmt.Sprintf("insert into %s (%s) values ($1, $2, $3, $4, $5)", m.table, userTblRowsExpectAutoSet)
+	ret, err := m.conn.ExecCtx(ctx, query, data.Name, data.FullName, data.HashPassword, data.Email, data.Role)
 	return ret, err
 }
 
 func (m *defaultUserTblModel) Update(ctx context.Context, data *UserTbl) error {
 	query := fmt.Sprintf("update %s set %s where id = $1", m.table, userTblRowsWithPlaceHolder)
-	_, err := m.conn.ExecCtx(ctx, query, data.Id, data.FullName, data.UserName, data.Password, data.Email, data.Role, data.CreatedAt, data.UpdatedAt)
+	_, err := m.conn.ExecCtx(ctx, query, data.Id, data.Name, data.FullName, data.HashPassword, data.Email, data.Role)
 	return err
 }
 
